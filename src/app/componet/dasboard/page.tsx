@@ -72,7 +72,7 @@ const Dashboard: React.FC = () => {
 
   const handleSingleFollowup = async (lead: Lead) => {
     try {
-      const res = await fetch("https://mailmorph-back-production.up.railway.app/lead/followup", {
+      const res = await fetch("http://localhost:8000/lead/followup", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
