@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 
-const API_BASE = process.env.NEXT_PUBLIC_API_URL || "https://mailmorph-back-production.up.railway.app/";
+const API_BASE = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
 
 export default function InboxPredictor() {
   const [subject, setSubject] = useState("");
