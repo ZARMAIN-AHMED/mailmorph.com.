@@ -67,7 +67,7 @@ const Pricing = () => {
     }
 
     try {
-      const res = await fetch("https://mailmorph-back-production.up.railway.app/checkout", {
+      const res = await fetch("http://localhost:8000/checkout", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
