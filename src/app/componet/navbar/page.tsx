@@ -97,7 +97,7 @@ const Navbar: React.FC = () => {
 
   // ✅ Login
   const handleLogin = () => {
-    const loginWindow = window.open(`${API_BASE}/auth/login`, "_blank");
+    const loginWindow = window.open(`${API_BASE}auth/login`, "_blank");
     const checkLogin = setInterval(() => {
       if (loginWindow?.closed) {
         clearInterval(checkLogin);
