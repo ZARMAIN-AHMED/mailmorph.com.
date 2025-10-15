@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { RefreshCw, Search, Share2, Trash2, Star, Download, X } from "lucide-react";
 
-const API_BASE = process.env.NEXT_PUBLIC_API_URL || "http://127.0.0.1:8000";
+const API_BASE = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
 
 interface ReplyType {
   from: string;   // Corrected from from_
