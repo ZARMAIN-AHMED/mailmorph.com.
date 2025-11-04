@@ -8,7 +8,7 @@ import RepliesUI from "../reply/page";
 import InboxPredictor from "../predictor/page";
 import { Menu, X,  } from "lucide-react";
 
-const API_BASE = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
+const API_BASE = process.env.NEXT_PUBLIC_API_URL;
 
 interface Email {
   to: string;
