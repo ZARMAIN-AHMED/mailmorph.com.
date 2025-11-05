@@ -259,7 +259,7 @@ const Navbar: React.FC = () => {
                         ✏️ Edit Profile
                       </button>
 
-                      <button
+                      <button>
                          <a
                   href="https://accounts.google.com/signup"
                   target="_blank"
