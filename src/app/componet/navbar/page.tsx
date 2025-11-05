@@ -260,10 +260,14 @@ const Navbar: React.FC = () => {
                       </button>
 
                       <button
-                        onClick={handleLogin}
-                        className="flex items-center gap-2 px-3 py-2 hover:bg-gray-800 rounded-md text-gray-200 w-full text-left"
+                         <a
+                  href="https://accounts.google.com/signup"
+                  target="_blank"
+                  rel="noopener noreferrer
+                  className="flex items-center gap-2 px-3 py-2 hover:bg-gray-800 rounded-md text-gray-200 w-full text-left"
                       >
                         <PlusCircle size={16} /> Add Another Account
+                    </a>
                       </button>
 
                       <button
