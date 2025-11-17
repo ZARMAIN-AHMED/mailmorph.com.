@@ -1,5 +1,4 @@
 
-
 "use client";
 import React, { useState, useEffect, useRef } from "react";
 import {
@@ -12,7 +11,8 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 
-const API_BASE =   process.env.NEXT_PUBLIC_API_URL;
+const API_BASE =
+  process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000"; // fallback
 
 interface UserType {
   id: number;
@@ -26,27 +26,29 @@ const Navbar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [user, setUser] = useState<UserType | null>(null);
+
+  // edit mode states
   const [editMode, setEditMode] = useState(false);
   const [tempName, setTempName] = useState("");
   const [tempBio, setTempBio] = useState("");
   const [tempPic, setTempPic] = useState<File | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
+
   const dropdownRef = useRef<HTMLDivElement>(null);
 
+  // ✅ Base menu items (always visible)
   const baseMenuItems = [
     { name: "Home", href: "/" },
     { name: "About", href: "/componet/about" },
     { name: "Email", href: "/componet/emailmanager" },
   ];
 
+  // ✅ Conditional menu items (only when logged in)
   const menuItems = user
-    ? [
-        ...baseMenuItems,
-        { name: "History", href: "/componet/history" },
-        { name: "Dashboard", href: "/componet/dasboard" },
-      ]
+    ? [...baseMenuItems, { name: "History", href: "/componet/history" }, { name: "Dashboard", href: "/componet/dasboard" }]
     : baseMenuItems;
 
+  // ✅ Fetch user
   const fetchUser = async () => {
     try {
       const res = await fetch(`https://mailmorph-back-xyz-production.up.railway.app/auth/me`, {
@@ -76,6 +78,7 @@ const Navbar: React.FC = () => {
     }
   }, []);
 
+  // ✅ Close dropdown on outside click
   useEffect(() => {
     const handler = (e: MouseEvent) => {
       if (
@@ -89,6 +92,7 @@ const Navbar: React.FC = () => {
     return () => document.removeEventListener("click", handler);
   }, [dropdownOpen]);
 
+  // ✅ Login
   const handleLogin = () => {
     const loginWindow = window.open(`https://mailmorph-back-xyz-production.up.railway.app/auth/login`, "_blank");
     const checkLogin = setInterval(() => {
@@ -99,6 +103,7 @@ const Navbar: React.FC = () => {
     }, 1000);
   };
 
+  // ✅ Logout
   const handleLogout = async () => {
     try {
       const res = await fetch(`https://mailmorph-back-xyz-production.up.railway.app/auth/logout`, {
@@ -114,6 +119,7 @@ const Navbar: React.FC = () => {
     }
   };
 
+  // ✅ Image upload preview
   const handlePicUpload = (file: File | null) => {
     setTempPic(file);
     if (file) {
@@ -124,8 +130,10 @@ const Navbar: React.FC = () => {
     }
   };
 
+  // ✅ Save Profile
   const handleSaveProfile = async () => {
     if (!user) return;
+
     const formData = new FormData();
     formData.append("id", String(user.id));
     formData.append("name", tempName);
@@ -133,16 +141,19 @@ const Navbar: React.FC = () => {
     if (tempPic) {
       formData.append("profilePic", tempPic);
     }
+
     try {
       const res = await fetch(`https://mailmorph-back-xyz-production.up.railway.app/user/update`, {
         method: "PATCH",
         body: formData,
         credentials: "include",
       });
+
       if (!res.ok) {
         console.error("Profile update failed");
         return;
       }
+
       const data = await res.json();
       setUser(data.user);
       localStorage.setItem("user", JSON.stringify(data.user));
@@ -171,7 +182,7 @@ const Navbar: React.FC = () => {
           </span>
         </a>
 
-        {/* Desktop Menu */}
+        {/* Desktop menu */}
         <ul className="hidden md:flex gap-8 items-center">
           {menuItems.map((item) => (
             <li key={item.name}>
@@ -188,8 +199,11 @@ const Navbar: React.FC = () => {
           ))}
         </ul>
 
-        {/* User Actions (Desktop) */}
-        <div className="hidden md:flex gap-4 items-center relative" ref={dropdownRef}>
+        {/* User actions (Desktop) */}
+        <div
+          className="hidden md:flex gap-4 items-center relative"
+          ref={dropdownRef}
+        >
           {user ? (
             <>
               {/* Avatar */}
@@ -239,15 +253,12 @@ const Navbar: React.FC = () => {
                         ✏️ Edit Profile
                       </button>
 
-                      {/* ✅ Fixed Add Another Account Link */}
-                      <a
-                        href="https://accounts.google.com/signup"
-                        target="_blank"
-                        rel="noopener noreferrer"
+                      <button
+                        onClick={handleLogin}
                         className="flex items-center gap-2 px-3 py-2 hover:bg-gray-800 rounded-md text-gray-200 w-full text-left"
                       >
                         <PlusCircle size={16} /> Add Another Account
-                      </a>
+                      </button>
 
                       <button
                         onClick={handleLogout}
@@ -274,9 +285,7 @@ const Navbar: React.FC = () => {
                       <input
                         type="file"
                         accept="image/*"
-                        onChange={(e) =>
-                          handlePicUpload(e.target.files?.[0] || null)
-                        }
+                        onChange={(e) => handlePicUpload(e.target.files?.[0] || null)}
                         className="text-xs text-gray-400"
                       />
                       {previewUrl && (
@@ -328,7 +337,7 @@ const Navbar: React.FC = () => {
           )}
         </div>
 
-        {/* Mobile Toggle */}
+        {/* Mobile toggle */}
         <button
           onClick={() => setIsOpen(!isOpen)}
           className="md:hidden text-white"
@@ -354,6 +363,7 @@ const Navbar: React.FC = () => {
             ))}
           </ul>
 
+          {/* User actions (Mobile) */}
           <div className="pt-4 border-t border-gray-700">
             {user ? (
               <>
