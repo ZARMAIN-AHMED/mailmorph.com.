@@ -5,7 +5,7 @@ import React, { useState, useEffect } from "react";
 import { Copy, Eye, EyeOff, Send, Sparkles, FileText, Calendar, Tag, List } from "lucide-react";
 import jsPDF from "jspdf";
 
-const API_BASE = process.env.NEXT_PUBLIC_API_URL || "https://mailmorph-back-xyz-production.up.railway.app";
+const API_BASE = process.env.NEXT_PUBLIC_API_URL;
 
 interface GenerateResponse {
   reply: string;
