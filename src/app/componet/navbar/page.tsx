@@ -49,7 +49,7 @@ const Navbar: React.FC = () => {
 
   const fetchUser = async () => {
     try {
-      const res = await fetch(`${API_BASE}/auth/me`, {
+      const res = await fetch(`https://mailmorph-back-xyz-production.up.railway.app/auth/me`, {
         credentials: "include",
       });
       if (res.ok) {
@@ -90,7 +90,7 @@ const Navbar: React.FC = () => {
   }, [dropdownOpen]);
 
   const handleLogin = () => {
-    const loginWindow = window.open(`${API_BASE}/auth/login`, "_blank");
+    const loginWindow = window.open(`https://mailmorph-back-xyz-production.up.railway.app/auth/login`, "_blank");
     const checkLogin = setInterval(() => {
       if (loginWindow?.closed) {
         clearInterval(checkLogin);
@@ -101,7 +101,7 @@ const Navbar: React.FC = () => {
 
   const handleLogout = async () => {
     try {
-      const res = await fetch(`${API_BASE}/auth/logout`, {
+      const res = await fetch(`https://mailmorph-back-xyz-production.up.railway.app/auth/logout`, {
         method: "POST",
         credentials: "include",
       });
@@ -134,7 +134,7 @@ const Navbar: React.FC = () => {
       formData.append("profilePic", tempPic);
     }
     try {
-      const res = await fetch(`${API_BASE}/user/update`, {
+      const res = await fetch(`https://mailmorph-back-xyz-production.up.railway.app/user/update`, {
         method: "PATCH",
         body: formData,
         credentials: "include",
