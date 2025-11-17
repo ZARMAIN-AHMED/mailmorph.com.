@@ -67,7 +67,7 @@ const Pricing = () => {
     }
 
     try {
-      const res = await fetch("https://mailback-mail-production.up.railway.app/checkout", {
+      const res = await fetch("https://mailmorph-back-xyz-production.up.railway.app/checkout", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
