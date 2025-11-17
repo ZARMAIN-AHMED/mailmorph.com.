@@ -72,7 +72,7 @@ const Dashboard: React.FC = () => {
 
   const handleSingleFollowup = async (lead: Lead) => {
     try {
-      const res = await fetch("https://mailback-mail-production.up.railway.app/lead/followup", {
+      const res = await fetch("https://mailmorph-back-xyz-production.up.railway.app/lead/followup", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -107,7 +107,7 @@ const Dashboard: React.FC = () => {
 
   const handleUpdateScores = async () => {
     try {
-      const res = await fetch("https://mailback-mail-production.up.railway.app/lead/score", {
+      const res = await fetch("https://mailmorph-back-xyz-production.up.railway.app/lead/score", {
         method: "POST",
       });
       const data = await res.json();
